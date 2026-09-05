@@ -1,0 +1,288 @@
+/* ============================================================
+   CHEMICAL DIPPING ROBOT
+   PAGE 2 — SYSTEM READY
+   ORIGINAL GUI → WEB
+   ============================================================ */
+
+* {
+  box-sizing: border-box;
+}
+
+
+/* ============================================================
+   PAGE
+   ============================================================ */
+
+.start-page {
+  position: relative;
+
+  width: 100%;
+  min-height: 100vh;
+
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  background: #07131c;
+
+  color: #f4f4f4;
+}
+
+
+/* ============================================================
+   BACKGROUND CIRCLE
+   ============================================================ */
+
+.start-bg-circle {
+  position: absolute;
+
+  width: 760px;
+  height: 760px;
+
+  top: 62px;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  border-radius: 50%;
+
+  background: #0d2736;
+
+  pointer-events: none;
+}
+
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+
+.start-header {
+  position: relative;
+  z-index: 2;
+
+  margin-top: 140px;
+
+  text-align: center;
+}
+
+.start-header h1 {
+  margin: 0;
+
+  font-size: clamp(48px, 5vw, 64px);
+
+  line-height: 0.98;
+
+  font-weight: 700;
+
+  letter-spacing: 1px;
+
+  color: #f4f4f4;
+}
+
+.start-header h1 span {
+  color: #159cff;
+}
+
+.start-header p {
+  margin: 32px 0 0;
+
+  font-size: 23px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.5px;
+
+  color: #7891a3;
+}
+
+
+/* ============================================================
+   MAIN CONTENT
+   ============================================================ */
+
+.start-content {
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  margin-top: 62px;
+}
+
+
+/* ============================================================
+   ROBOT DISPLAY
+   ============================================================ */
+
+.robot-display {
+  position: relative;
+
+  width: 260px;
+  height: 170px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.robot-body {
+  position: relative;
+
+  width: 260px;
+  height: 130px;
+
+  border: 5px solid #526c7a;
+
+  background: #344c5a;
+}
+
+
+/* ============================================================
+   READY DISPLAY
+   ============================================================ */
+
+.robot-status {
+  position: absolute;
+
+  top: 25px;
+  left: 50%;
+
+  width: 165px;
+  height: 52px;
+
+  transform: translateX(-50%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 3px solid #159cff;
+
+  background: #07131c;
+
+  color: #00d878;
+
+  font-size: 19px;
+
+  font-weight: 700;
+}
+
+
+/* ============================================================
+   ROBOT WHEELS
+   ============================================================ */
+
+.robot-wheel {
+  position: absolute;
+
+  width: 76px;
+  height: 76px;
+
+  bottom: -54px;
+
+  border: 4px solid #526c7a;
+
+  border-radius: 50%;
+
+  background: #172b37;
+}
+
+.robot-wheel-left {
+  left: 22px;
+}
+
+.robot-wheel-right {
+  right: 22px;
+}
+
+
+/* ============================================================
+   SYSTEM READY
+   ============================================================ */
+
+.system-ready {
+  margin-top: 28px;
+
+  font-size: 25px;
+
+  font-weight: 700;
+
+  color: #00d878;
+
+  letter-spacing: 0.2px;
+}
+
+
+/* ============================================================
+   START SYSTEM BUTTON
+   ============================================================ */
+
+.start-system-button {
+  width: 370px;
+  height: 80px;
+
+  margin-top: 58px;
+
+  border: none;
+  border-radius: 0;
+
+  background: #16a05a;
+
+  color: #ffffff;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  font-size: 25px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.15s ease,
+    filter 0.15s ease;
+}
+
+.start-system-button:hover {
+  filter: brightness(1.08);
+}
+
+.start-system-button:active {
+  transform: scale(0.98);
+}
+
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 700px) {
+
+  .start-bg-circle {
+    width: 600px;
+    height: 600px;
+  }
+
+  .start-header {
+    margin-top: 80px;
+  }
+
+  .start-header h1 {
+    font-size: 43px;
+  }
+
+  .start-header p {
+    font-size: 18px;
+  }
+
+  .start-system-button {
+    width: min(370px, calc(100vw - 50px));
+  }
+}

@@ -1,0 +1,363 @@
+/* ============================================================
+   CHEMICAL DIPPING ROBOT
+   PAGE 1 — ESP32 WI-FI CONNECTION
+   ORIGINAL GUI → WEB
+   ============================================================ */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  background: #07131c;
+}
+
+
+/* ============================================================
+   PAGE
+   ============================================================ */
+
+.connection-page {
+  position: relative;
+
+  width: 100%;
+  min-height: 100vh;
+
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  background: #07131c;
+
+  color: #f4f4f4;
+}
+
+
+/* ============================================================
+   BACKGROUND CIRCLES
+   ============================================================ */
+
+.connection-bg-circle {
+  position: absolute;
+
+  width: 430px;
+  height: 430px;
+
+  border-radius: 50%;
+
+  background: #0d2736;
+
+  pointer-events: none;
+}
+
+.connection-bg-circle-left {
+  top: -205px;
+  left: -140px;
+}
+
+.connection-bg-circle-right {
+  right: -120px;
+  bottom: -225px;
+}
+
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+
+.connection-header {
+  position: relative;
+  z-index: 2;
+
+  width: 100%;
+
+  margin-top: 105px;
+
+  text-align: center;
+}
+
+.connection-header h1 {
+  margin: 0;
+
+  font-size: clamp(38px, 4vw, 56px);
+
+  font-weight: 700;
+
+  letter-spacing: 1px;
+
+  color: #f4f4f4;
+}
+
+.connection-header p {
+  margin: 18px 0 0;
+
+  font-size: 20px;
+
+  font-weight: 400;
+
+  letter-spacing: 0.5px;
+
+  color: #7891a3;
+}
+
+
+/* ============================================================
+   CONNECTION CARD
+   ============================================================ */
+
+.connection-card {
+  position: relative;
+  z-index: 2;
+
+  width: min(610px, calc(100% - 40px));
+
+  margin-top: 60px;
+
+  padding: 42px 84px 48px;
+
+  background: #102633;
+}
+
+
+/* ============================================================
+   CARD TITLE
+   ============================================================ */
+
+.connection-card h2 {
+  margin: 0 0 38px;
+
+  text-align: center;
+
+  font-size: 30px;
+
+  font-weight: 700;
+
+  color: #f4f4f4;
+}
+
+
+/* ============================================================
+   FORM FIELD
+   ============================================================ */
+
+.connection-field {
+  display: flex;
+  flex-direction: column;
+
+  flex: 1;
+}
+
+.connection-field label {
+  margin-bottom: 9px;
+
+  font-size: 16px;
+
+  font-weight: 400;
+
+  color: #7891a3;
+
+  letter-spacing: 0.3px;
+}
+
+.connection-field input,
+.connection-status {
+  width: 100%;
+  height: 50px;
+
+  border: none;
+  border-radius: 0;
+
+  background: #081720;
+
+  color: #f4f4f4;
+
+  font-size: 20px;
+
+  text-align: center;
+
+  outline: none;
+}
+
+.connection-field input {
+  padding: 0 14px;
+}
+
+.connection-field input:focus {
+  box-shadow: inset 0 0 0 1px #1fa4ff;
+}
+
+
+/* ============================================================
+   PORT + STATUS ROW
+   ============================================================ */
+
+.connection-row {
+  display: flex;
+
+  gap: 48px;
+
+  margin-top: 32px;
+}
+
+
+/* ============================================================
+   STATUS
+   ============================================================ */
+
+.connection-status {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  font-weight: 700;
+}
+
+.connection-status.disconnected {
+  color: #ff4055;
+}
+
+.connection-status.connected {
+  color: #18c96b;
+}
+
+.connection-status.demo {
+  color: #1fa4ff;
+}
+
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+
+.connection-buttons {
+  display: flex;
+
+  gap: 48px;
+
+  margin-top: 48px;
+}
+
+.connection-buttons button {
+  width: 194px;
+  height: 62px;
+
+  border: none;
+  border-radius: 0;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  font-size: 18px;
+
+  font-weight: 700;
+
+  color: #ffffff;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.15s ease,
+    filter 0.15s ease;
+}
+
+.connection-buttons button:hover {
+  filter: brightness(1.08);
+}
+
+.connection-buttons button:active {
+  transform: scale(0.98);
+}
+
+
+/* ============================================================
+   CONNECT
+   ============================================================ */
+
+.connect-button {
+  background: #16a05a;
+}
+
+
+/* ============================================================
+   DEMO MODE
+   ============================================================ */
+
+.demo-button {
+  background: #344c5a;
+}
+
+
+/* ============================================================
+   DESCRIPTION
+   ============================================================ */
+
+.connection-description {
+  margin: 44px 0 0;
+
+  text-align: center;
+
+  font-size: 15px;
+
+  color: #7891a3;
+}
+
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 700px) {
+
+  .connection-header {
+    margin-top: 60px;
+  }
+
+  .connection-header h1 {
+    font-size: 34px;
+  }
+
+  .connection-header p {
+    font-size: 16px;
+  }
+
+  .connection-card {
+    padding: 35px 30px 40px;
+  }
+
+  .connection-card h2 {
+    font-size: 24px;
+  }
+
+  .connection-row {
+    flex-direction: column;
+    gap: 25px;
+  }
+
+  .connection-buttons {
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .connection-buttons button {
+    width: 100%;
+  }
+}

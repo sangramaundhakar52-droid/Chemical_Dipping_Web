@@ -1,0 +1,992 @@
+/* ============================================================
+   CHEMICAL DIPPING ROBOT
+   PAGE 3
+   ORIGINAL GUI STYLE
+   ============================================================ */
+
+:root {
+    --p3-bg: #08131C;
+    --p3-panel: #10212D;
+    --p3-panel-dark: #0B1821;
+
+    --p3-white: #F4F7F9;
+    --p3-text: #C7D5DD;
+    --p3-muted: #78909C;
+
+    --p3-green: #20D47A;
+    --p3-green-dark: #159957;
+
+    --p3-blue: #35A7FF;
+    --p3-cyan: #25D9D0;
+
+    --p3-red: #FF4D5A;
+    --p3-orange: #FFB547;
+
+    --p3-steel: #536B78;
+    --p3-steel-dark: #304651;
+}
+
+
+/* ============================================================
+   RESET
+   ============================================================ */
+
+.page3,
+.page3 * {
+    box-sizing: border-box;
+}
+
+.page3 {
+    width: 100%;
+    min-height: 100vh;
+
+    background: var(--p3-bg);
+    color: var(--p3-white);
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    overflow-x: hidden;
+}
+
+
+/* ============================================================
+   HEADER
+   ORIGINAL: 1280 x 70
+   ============================================================ */
+
+.page3-header {
+    width: 100%;
+    height: 70px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 25px;
+
+    background: var(--p3-panel);
+}
+
+.page3-title {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+}
+
+.page3-mode {
+    margin-right: 75px;
+
+    color: var(--p3-green);
+
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.page3-mode span {
+    margin-right: 7px;
+}
+
+
+/* ============================================================
+   MAIN
+   ORIGINAL:
+   left  x=20 y=90 width=700 height=610
+   right x=740 y=90 width=520 height=610
+   ============================================================ */
+
+.page3-main {
+    width: 1220px;
+    height: 610px;
+
+    margin: 20px auto 0;
+
+    display: grid;
+    grid-template-columns: 700px 520px;
+
+    gap: 20px;
+}
+
+
+/* ============================================================
+   MACHINE SECTION
+   ============================================================ */
+
+.machine-section {
+    width: 700px;
+    height: 610px;
+
+    padding: 0 25px;
+
+    background: var(--p3-panel-dark);
+}
+
+.machine-section h2 {
+    height: 55px;
+
+    margin: 0;
+
+    display: flex;
+    align-items: center;
+
+    color: var(--p3-white);
+
+    font-size: 18px;
+    font-weight: 700;
+}
+
+
+/* ============================================================
+   MACHINE CANVAS
+   ORIGINAL 650 x 540
+   ============================================================ */
+
+.machine-canvas-wrap {
+    width: 650px;
+    height: 540px;
+
+    background: #DDE7EA;
+
+    overflow: hidden;
+}
+
+.machine-svg {
+    width: 650px;
+    height: 540px;
+
+    display: block;
+}
+
+
+/* ============================================================
+   ARM ANIMATION
+   ============================================================ */
+
+.machine-arm {
+    transform-origin: 325px 105px;
+}
+
+
+/* ============================================================
+   RIGHT SIDE
+   ============================================================ */
+
+.page3-right {
+    width: 520px;
+    height: 610px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+
+/* ============================================================
+   STATUS PANEL
+   ORIGINAL HEIGHT 145
+   ============================================================ */
+
+.status-panel {
+    position: relative;
+
+    width: 520px;
+    height: 145px;
+
+    padding: 12px 20px;
+
+    background: var(--p3-panel);
+}
+
+.status-heading {
+    color: var(--p3-muted);
+
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.status-position {
+    margin-top: 10px;
+
+    color: var(--p3-white);
+
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.status-operation {
+    margin-top: 17px;
+
+    color: var(--p3-blue);
+
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.status-timer {
+    position: absolute;
+
+    right: 78px;
+    top: 72px;
+
+    color: var(--p3-orange);
+
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.status-station {
+    position: absolute;
+
+    right: 68px;
+    top: 104px;
+
+    color: var(--p3-muted);
+
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.status-cycle {
+    position: absolute;
+
+    right: 68px;
+    top: 129px;
+
+    color: var(--p3-cyan);
+
+    font-size: 14px;
+    font-weight: 700;
+}
+
+
+/* ============================================================
+   TIMING PANEL
+   ORIGINAL HEIGHT 335
+   ============================================================ */
+
+.timing-panel {
+    width: 520px;
+    height: 335px;
+
+    padding: 0 20px;
+
+    background: var(--p3-panel);
+}
+
+.timing-panel h2 {
+    height: 55px;
+
+    margin: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: var(--p3-white);
+
+    font-size: 18px;
+    font-weight: 700;
+}
+
+
+/* ============================================================
+   TIMING HEADER
+   ============================================================ */
+
+.timing-header {
+    display: grid;
+
+    grid-template-columns:
+        1.25fr 1fr 1fr;
+
+    align-items: center;
+
+    height: 25px;
+
+    color: var(--p3-muted);
+
+    font-size: 12px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.timing-header span:first-child {
+    text-align: left;
+}
+
+
+/* ============================================================
+   TIMING ROW
+   ============================================================ */
+
+.timing-row {
+    height: 40px;
+
+    display: grid;
+
+    grid-template-columns:
+        1.25fr 1fr 1fr;
+
+    align-items: center;
+
+    column-gap: 10px;
+}
+
+.timing-name {
+    color: var(--p3-white);
+
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.timing-row input {
+    width: 95px;
+    height: 28px;
+
+    justify-self: center;
+
+    padding: 0 8px;
+
+    border: none;
+    outline: none;
+
+    background: var(--p3-panel-dark);
+
+    color: var(--p3-white);
+
+    font-size: 13px;
+    text-align: center;
+}
+
+.timing-row input:focus {
+    outline: 1px solid var(--p3-blue);
+}
+
+
+/* ============================================================
+   MANUAL CYCLE COUNT
+   ============================================================ */
+
+.cycle-setting {
+    height: 48px;
+
+    margin-top: 4px;
+
+    display: grid;
+
+    grid-template-columns:
+        1.5fr 1fr 70px;
+
+    align-items: center;
+
+    gap: 8px;
+}
+
+.cycle-setting label {
+    color: var(--p3-white);
+
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.cycle-setting input {
+    width: 120px;
+    height: 30px;
+
+    justify-self: center;
+
+    border: none;
+    outline: none;
+
+    background: var(--p3-panel-dark);
+
+    color: var(--p3-white);
+
+    font-size: 14px;
+    font-weight: 700;
+
+    text-align: center;
+}
+
+.cycle-setting button {
+    width: 60px;
+    height: 32px;
+
+    border: none;
+
+    background: var(--p3-steel-dark);
+
+    color: white;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+.cycle-setting button:hover {
+    background: var(--p3-steel);
+}
+
+
+/* ============================================================
+   HELP TEXT
+   ============================================================ */
+
+.timing-help {
+    margin-top: -1px;
+
+    color: var(--p3-muted);
+
+    font-size: 11px;
+}
+
+
+/* ============================================================
+   CONTROL PANEL
+   ORIGINAL HEIGHT 105
+   ============================================================ */
+
+.control-panel {
+    width: 520px;
+    height: 105px;
+
+    padding: 0 20px;
+
+    background: var(--p3-panel);
+}
+
+.control-panel h2 {
+    height: 50px;
+
+    margin: 0;
+
+    display: flex;
+    align-items: center;
+
+    color: var(--p3-white);
+
+    font-size: 18px;
+    font-weight: 700;
+}
+
+
+/* ============================================================
+   CONTROL BUTTONS
+   ============================================================ */
+
+.control-row {
+    display: flex;
+    align-items: center;
+
+    gap: 20px;
+}
+
+.control-row button {
+    height: 55px;
+
+    border: none;
+
+    color: white;
+
+    font-size: 15px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.12s ease,
+        filter 0.12s ease;
+}
+
+.control-row button:hover {
+    transform: translateY(-1px);
+    filter: brightness(1.08);
+}
+
+.start-cycle {
+    width: 140px;
+
+    background: var(--p3-green-dark);
+}
+
+.stop-cycle {
+    width: 100px;
+
+    background: var(--p3-red);
+}
+
+.home-cycle {
+    width: 100px;
+
+    background: var(--p3-steel-dark);
+}
+
+.control-row button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+
+/* ============================================================
+   ERROR
+   ============================================================ */
+
+.page3-error {
+    position: absolute;
+
+    z-index: 10;
+
+    top: 80px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    padding: 10px 18px;
+
+    background: #351820;
+    border: 1px solid #7D3040;
+
+    color: #FF8798;
+
+    font-size: 13px;
+    font-weight: 700;
+}
+
+
+/* ============================================================
+   LOADING
+   ============================================================ */
+
+.page3-loading {
+    width: 100%;
+    min-height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: var(--p3-bg);
+
+    color: var(--p3-white);
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.page3-loading button {
+    margin-top: 15px;
+
+    padding: 12px 20px;
+
+    border: none;
+
+    background: var(--p3-green-dark);
+
+    color: white;
+
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 1100px) {
+
+    .page3-main {
+        width: 100%;
+        height: auto;
+
+        grid-template-columns: 1fr;
+
+        padding: 0 15px;
+    }
+
+    .machine-section,
+    .page3-right {
+        width: 100%;
+    }
+
+    .machine-canvas-wrap {
+        max-width: 100%;
+    }
+
+}
+
+@media (max-width: 700px) {
+
+    .page3-header {
+        padding: 0 15px;
+    }
+
+    .page3-title {
+        font-size: 19px;
+    }
+
+    .page3-mode {
+        margin-right: 0;
+
+        font-size: 11px;
+    }
+
+    .machine-section {
+        padding: 0 10px;
+    }
+
+    .machine-canvas-wrap {
+        width: 100%;
+        height: auto;
+    }
+
+    .machine-svg {
+        width: 100%;
+        height: auto;
+    }
+
+}
+
+/* ============================================================
+   CHEMICAL DIPPING ROBOT
+   CYCLE COMPLETE POPUP
+   ORIGINAL GUI → WEB
+   ============================================================ */
+
+
+/* ============================================================
+   OVERLAY
+   ============================================================ */
+
+.cycle-complete-overlay {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 9999;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: rgba(0,
+            0,
+            0,
+            0.58);
+
+}
+
+
+/* ============================================================
+   POPUP
+   ============================================================ */
+
+.cycle-complete-popup {
+
+    width: 520px;
+
+    min-height: 330px;
+
+    box-sizing: border-box;
+
+    padding:
+        20px 30px 30px 30px;
+
+    background: #10212D;
+
+    border:
+        1px solid #183947;
+
+    box-shadow:
+        0 20px 60px rgba(0,
+            0,
+            0,
+            0.45);
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: flex-start;
+
+}
+
+
+/* ============================================================
+   SUCCESS CHECK
+   ============================================================ */
+
+.cycle-complete-icon {
+
+    margin-top: 0;
+
+    color: #20D47A;
+
+    font-size: 58px;
+
+    font-weight: 700;
+
+    line-height: 1;
+
+}
+
+
+/* ============================================================
+   TITLE
+   ============================================================ */
+
+.cycle-complete-title {
+
+    margin-top: 12px;
+
+    color: #F4F7F9;
+
+    font-size: 32px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.3px;
+
+    text-align: center;
+
+}
+
+
+/* ============================================================
+   SUMMARY
+   ============================================================ */
+
+.cycle-complete-summary {
+
+    margin-top: 14px;
+
+    color: #C7D5DD;
+
+    font-size: 18px;
+
+    text-align: center;
+
+}
+
+
+/* ============================================================
+   HOME STATUS
+   ============================================================ */
+
+.cycle-complete-home {
+
+    margin-top: 12px;
+
+    color: #78909C;
+
+    font-size: 18px;
+
+    text-align: center;
+
+}
+
+
+/* ============================================================
+   FINAL MESSAGE
+   ============================================================ */
+
+.cycle-complete-message {
+
+    margin-top: 18px;
+
+    color: #C7D5DD;
+
+    font-size: 17px;
+
+    text-align: center;
+
+}
+
+
+/* ============================================================
+   BUTTON AREA
+   ============================================================ */
+
+.cycle-complete-buttons {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 24px;
+
+    margin-top: 28px;
+
+}
+
+
+/* ============================================================
+   CHANGE BUTTON
+   ============================================================ */
+
+.cycle-complete-change {
+
+    width: 174px;
+
+    height: 66px;
+
+    padding: 0;
+
+    border: none;
+
+    border-radius: 0;
+
+    background: #304651;
+
+    color: white;
+
+    font-size: 18px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        background 0.15s ease,
+        transform 0.15s ease;
+
+}
+
+
+.cycle-complete-change:hover {
+
+    background: #3D5966;
+
+}
+
+
+.cycle-complete-change:active {
+
+    transform:
+        translateY(1px);
+
+}
+
+
+/* ============================================================
+   CLOSE BUTTON
+   ============================================================ */
+
+.cycle-complete-close {
+
+    width: 174px;
+
+    height: 66px;
+
+    padding: 0;
+
+    border: none;
+
+    border-radius: 0;
+
+    background: #159957;
+
+    color: white;
+
+    font-size: 18px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        background 0.15s ease,
+        transform 0.15s ease;
+
+}
+
+
+.cycle-complete-close:hover {
+
+    background: #18A866;
+
+}
+
+
+.cycle-complete-close:active {
+
+    transform:
+        translateY(1px);
+
+}
+
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 600px) {
+
+    .cycle-complete-popup {
+
+        width:
+            calc(100vw - 30px);
+
+        min-height: 300px;
+
+        padding:
+            20px 18px 24px 18px;
+
+    }
+
+
+    .cycle-complete-title {
+
+        font-size: 25px;
+
+    }
+
+
+    .cycle-complete-summary,
+    .cycle-complete-home,
+    .cycle-complete-message {
+
+        font-size: 15px;
+
+    }
+
+
+    .cycle-complete-buttons {
+
+        width: 100%;
+
+        gap: 12px;
+
+    }
+
+
+    .cycle-complete-change,
+    .cycle-complete-close {
+
+        width: 50%;
+
+        height: 58px;
+
+        font-size: 16px;
+
+    }
+
+}
