@@ -10,6 +10,81 @@ import "../styles/page2.css";
 // ORIGINAL GUI → WEB
 // ============================================================
 
+// ============================================================
+// LIVE FASTAPI BACKEND
+// ============================================================
+
+const API_BASE =
+  import.meta.env.VITE_API_URL ||
+  "https://chemical-dipping-web.onrender.com";
+
+
+// ============================================================
+// SAFE RESPONSE READER
+// ============================================================
+
+const readResponse = async (response) => {
+
+  const contentType =
+    response.headers.get("content-type") || "";
+
+  // ----------------------------------------------------------
+  // JSON response
+  // ----------------------------------------------------------
+
+  if (
+    contentType
+      .toLowerCase()
+      .includes("application/json")
+  ) {
+
+    try {
+
+      return await response.json();
+
+    } catch (error) {
+
+      console.warn(
+        "Backend returned invalid JSON:",
+        error
+      );
+
+      return {};
+
+    }
+
+  }
+
+  // ----------------------------------------------------------
+  // Empty / text response
+  // ----------------------------------------------------------
+
+  const text =
+    await response.text();
+
+  if (!text.trim()) {
+    return {};
+  }
+
+  try {
+
+    return JSON.parse(text);
+
+  } catch {
+
+    return {
+      message: text
+    };
+
+  }
+
+};
+
+
+// ============================================================
+// START PAGE
+// ============================================================
+
 function StartPage() {
 
   const navigate = useNavigate();
@@ -30,16 +105,39 @@ function StartPage() {
 
     try {
 
+      console.log(
+        "Starting Chemical Dipping Robot..."
+      );
+
+      console.log(
+        "Backend:",
+        API_BASE
+      );
+
+
+      // ------------------------------------------------------
+      // CALL FASTAPI BACKEND
+      // ------------------------------------------------------
+
       const response = await fetch(
-        "/api/machine/start",
+        `${API_BASE}/api/machine/start`,
         {
           method: "POST",
+
+          headers: {
+            "Content-Type": "application/json",
+          },
+
         }
       );
 
 
+      // ------------------------------------------------------
+      // READ RESPONSE SAFELY
+      // ------------------------------------------------------
+
       const data =
-        await response.json();
+        await readResponse(response);
 
 
       console.log(
@@ -48,11 +146,16 @@ function StartPage() {
       );
 
 
+      // ------------------------------------------------------
+      // BACKEND ERROR
+      // ------------------------------------------------------
+
       if (!response.ok) {
 
         throw new Error(
           data?.detail ||
-          "Unable to start machine"
+          data?.message ||
+          `Unable to start machine (${response.status})`
         );
 
       }
@@ -68,12 +171,27 @@ function StartPage() {
       );
 
 
+      sessionStorage.setItem(
+        "chemical_robot_mode",
+        sessionStorage.getItem(
+          "chemical_robot_mode"
+        ) || "demo"
+      );
+
+
+      // ------------------------------------------------------
       // Original GUI:
       // START SYSTEM → CONTROL PAGE
+      // ------------------------------------------------------
 
       navigate("/control");
 
     }
+
+
+    // ========================================================
+    // ERROR
+    // ========================================================
 
     catch (error) {
 
@@ -84,11 +202,16 @@ function StartPage() {
 
 
       setError(
-        error.message ||
-        "Unable to start system"
+        error?.message ||
+        "Unable to start system. Please check the backend."
       );
 
     }
+
+
+    // ========================================================
+    // FINALLY
+    // ========================================================
 
     finally {
 
@@ -149,9 +272,13 @@ function StartPage() {
               READY
             </div>
 
-            <div className="robot-wheel robot-wheel-left" />
+            <div
+              className="robot-wheel robot-wheel-left"
+            />
 
-            <div className="robot-wheel robot-wheel-right" />
+            <div
+              className="robot-wheel robot-wheel-right"
+            />
 
           </div>
 
@@ -207,6 +334,7 @@ function StartPage() {
     </div>
 
   );
+
 }
 
 
