@@ -3,14 +3,15 @@ import { useNavigate } from "react-router-dom";
 
 import "../styles/page1.css";
 
-
 // ============================================================
 // CHEMICAL DIPPING ROBOT
 // PAGE 1 — ESP32 CONNECTION
 // ============================================================
 
-function ConnectionPage() {
+// Live FastAPI backend
+const API_BASE = "https://chemical-dipping-web.onrender.com";
 
+function ConnectionPage() {
   const navigate = useNavigate();
 
   const [ipAddress, setIpAddress] = useState("192.168.4.1");
@@ -19,27 +20,42 @@ function ConnectionPage() {
   const [status, setStatus] = useState("DISCONNECTED");
   const [connecting, setConnecting] = useState(false);
 
-
   // ==========================================================
   // DEMO MODE
   // ==========================================================
 
   const handleDemoMode = async () => {
-
     try {
+      setConnecting(true);
+      setStatus("STARTING DEMO...");
 
       const response = await fetch(
-        "/api/machine/demo",
+        `${API_BASE}/api/machine/demo`,
         {
           method: "POST",
+          headers: {
+            Accept: "application/json",
+          },
         }
       );
 
-      if (!response.ok) {
-        throw new Error("Demo mode failed");
+      let data = null;
+
+      try {
+        data = await response.json();
+      } catch {
+        data = null;
       }
 
-      const data = await response.json();
+      console.log("Demo mode response:", data);
+
+      if (!response.ok) {
+        throw new Error(
+          data?.detail ||
+          data?.message ||
+          "Demo mode failed"
+        );
+      }
 
       sessionStorage.setItem(
         "chemical_robot_mode",
@@ -48,19 +64,9 @@ function ConnectionPage() {
 
       setStatus("DEMO MODE");
 
-      console.log(
-        "Demo mode:",
-        data
-      );
-
       navigate("/start");
-
     } catch (error) {
-
-      console.error(
-        "Demo mode error:",
-        error
-      );
+      console.error("Demo mode error:", error);
 
       setStatus("FAILED");
 
@@ -68,41 +74,32 @@ function ConnectionPage() {
         "Could not start Demo Mode.\n\n" +
         "Make sure the FastAPI backend is running."
       );
+    } finally {
+      setConnecting(false);
     }
   };
-
 
   // ==========================================================
   // REAL ESP32 CONNECTION
   // ==========================================================
 
   const handleConnect = async () => {
-
     if (!ipAddress.trim()) {
-
       setStatus("INVALID IP");
-
       return;
     }
-
 
     if (!tcpPort.trim()) {
-
       setStatus("INVALID PORT");
-
       return;
     }
 
-
     setConnecting(true);
-
     setStatus("CONNECTING...");
 
-
     try {
-
       const url =
-        "/api/machine/connect" +
+        `${API_BASE}/api/machine/connect` +
         `?ip=${encodeURIComponent(
           ipAddress.trim()
         )}` +
@@ -110,24 +107,30 @@ function ConnectionPage() {
           tcpPort
         )}`;
 
-
-      const response = await fetch(
-        url,
-        {
-          method: "POST",
-        }
+      console.log(
+        "Connecting to backend:",
+        url
       );
 
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+        },
+      });
 
-      const data =
-        await response.json();
+      let data = null;
 
+      try {
+        data = await response.json();
+      } catch {
+        data = null;
+      }
 
       console.log(
         "ESP32 connection response:",
         data
       );
-
 
       // ======================================================
       // SUCCESS
@@ -135,38 +138,29 @@ function ConnectionPage() {
 
       if (
         response.ok &&
-        data.connected === true
+        data?.connected === true
       ) {
-
         setStatus("CONNECTED");
-
 
         sessionStorage.setItem(
           "chemical_robot_mode",
           "esp32"
         );
 
-
         sessionStorage.setItem(
           "esp32_ip",
           ipAddress.trim()
         );
-
 
         sessionStorage.setItem(
           "esp32_port",
           tcpPort
         );
 
-
-        // Original GUI behavior:
-        // successful connection → Page 2
-
         navigate("/start");
 
         return;
       }
-
 
       // ======================================================
       // FAILED
@@ -174,45 +168,34 @@ function ConnectionPage() {
 
       setStatus("FAILED");
 
-
       alert(
         "Could not connect to ESP32.\n\n" +
         "Check the IP address, TCP port, " +
         "Wi-Fi connection and ESP32 TCP server."
       );
-
     } catch (error) {
-
       console.error(
         "ESP32 connection error:",
         error
       );
 
-
       setStatus("FAILED");
-
 
       alert(
         "Could not connect to the backend.\n\n" +
         "Make sure the FastAPI backend is running."
       );
-
     } finally {
-
       setConnecting(false);
-
     }
   };
-
 
   // ==========================================================
   // UI
   // ==========================================================
 
   return (
-
     <div className="connection-page">
-
 
       {/* ======================================================
           BACKGROUND
@@ -222,13 +205,11 @@ function ConnectionPage() {
 
       <div className="connection-bg-circle connection-bg-circle-right" />
 
-
       {/* ======================================================
           HEADER
       ====================================================== */}
 
       <header className="connection-header">
-
         <h1>
           CHEMICAL DIPPING ROBOT
         </h1>
@@ -236,9 +217,7 @@ function ConnectionPage() {
         <p>
           SMART MACHINE CONTROL SYSTEM
         </p>
-
       </header>
-
 
       {/* ======================================================
           CONNECTION CARD
@@ -249,7 +228,6 @@ function ConnectionPage() {
         <h2>
           ESP32 Wi-Fi CONNECTION
         </h2>
-
 
         {/* ====================================================
             IP ADDRESS
@@ -263,20 +241,16 @@ function ConnectionPage() {
           type="text"
           value={ipAddress}
           onChange={(event) =>
-            setIpAddress(
-              event.target.value
-            )
+            setIpAddress(event.target.value)
           }
           disabled={connecting}
         />
-
 
         {/* ====================================================
             PORT + STATUS
         ==================================================== */}
 
         <div className="connection-row">
-
 
           <div className="connection-field">
 
@@ -288,15 +262,12 @@ function ConnectionPage() {
               type="number"
               value={tcpPort}
               onChange={(event) =>
-                setTcpPort(
-                  event.target.value
-                )
+                setTcpPort(event.target.value)
               }
               disabled={connecting}
             />
 
           </div>
-
 
           <div className="connection-field">
 
@@ -309,7 +280,8 @@ function ConnectionPage() {
                 ? "status-connected"
                 : status === "DEMO MODE"
                   ? "status-demo"
-                  : status === "CONNECTING..."
+                  : status === "CONNECTING..." ||
+                    status === "STARTING DEMO..."
                     ? "status-connecting"
                     : status === "FAILED"
                       ? "status-failed"
@@ -321,9 +293,7 @@ function ConnectionPage() {
 
           </div>
 
-
         </div>
-
 
         {/* ====================================================
             BUTTONS
@@ -337,13 +307,10 @@ function ConnectionPage() {
             onClick={handleConnect}
             disabled={connecting}
           >
-            {
-              connecting
-                ? "CONNECTING..."
-                : "CONNECT"
-            }
+            {connecting
+              ? "CONNECTING..."
+              : "CONNECT"}
           </button>
-
 
           <button
             type="button"
@@ -356,17 +323,14 @@ function ConnectionPage() {
 
         </div>
 
-
         <p className="demo-description">
           Demo mode runs the complete machine simulation
         </p>
-
 
       </main>
 
     </div>
   );
 }
-
 
 export default ConnectionPage;
